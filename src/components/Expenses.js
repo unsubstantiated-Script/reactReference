@@ -1,13 +1,15 @@
 import React from "react";
+import Card from "./Card";
 import ExpenseItem from "./ExpenseItem";
+import "./Expenses.css";
 
 const Expenses = ({ expenses }) => {
 	return (
-		<div>
+		<Card className='expenses'>
 			{expenses.map((expense) => (
 				<ExpenseItem key={expense.id} expense={expense} />
 			))}
-		</div>
+		</Card>
 	);
 };
 
