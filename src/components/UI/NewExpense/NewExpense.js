@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./NewExpense.css";
 import ExpenseForm from "./ExpenseForm";
 
 const NewExpense = ({ onAddExpense }) => {
+	const [showForm, setShowForm] = useState(false);
+
 	const rando = (min, max) => {
 		return Math.random() * (max - min) + min;
+	};
+
+	const onClickHandler = () => {
+		setShowForm((priorState) => !priorState);
 	};
 
 	const saveExpenseDataHandler = (enteredExpenseData) => {
@@ -17,7 +23,14 @@ const NewExpense = ({ onAddExpense }) => {
 
 	return (
 		<div className='new-expense'>
-			<ExpenseForm onSaveExpenseData={saveExpenseDataHandler} />
+			{showForm ? (
+				<ExpenseForm
+					onSaveExpenseData={saveExpenseDataHandler}
+					clickHandler={onClickHandler}
+				/>
+			) : (
+				<button onClick={onClickHandler}>Add a New Expense</button>
+			)}
 		</div>
 	);
 };

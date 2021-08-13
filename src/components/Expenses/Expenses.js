@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import Card from "../UI/Card";
-import ExpenseItem from "./ExpenseItem";
 import "./Expenses.css";
 import ExpensesFilter from "../UI/NewExpense/ExpensesFilter";
+import ExpensesList from "./ExpensesList";
+import ExpensesChart from "./ExpensesChart";
+import moment from "moment";
 
 const Expenses = ({ expenses }) => {
 	const [pickedYear, setPickedYear] = useState("2020");
 
-	console.log(pickedYear);
+	const filteredExpenses = expenses.filter(
+		(object) => moment(object.date).format("YYYY") === pickedYear,
+	);
+
 	return (
 		<>
 			<Card className='expenses'>
@@ -15,9 +20,8 @@ const Expenses = ({ expenses }) => {
 					selectYearState={setPickedYear}
 					yearState={pickedYear}
 				/>
-				{expenses.map((expense) => (
-					<ExpenseItem key={expense.id} expense={expense} />
-				))}
+				<ExpensesChart expenses={filteredExpenses} />
+				<ExpensesList items={filteredExpenses} />
 			</Card>
 		</>
 	);
